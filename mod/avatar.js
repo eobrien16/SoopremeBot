@@ -1,4 +1,4 @@
-exports.run = async (message, client, args) => {
+exports.run = async (message, client, args, ) => {
     await message.delete(0);
     if (message.content.indexOf(' ') !== -1) {
       let user = message.mentions.users.first();

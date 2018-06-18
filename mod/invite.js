@@ -1,4 +1,4 @@
-exports.run = async (message, client, args) => {
+exports.run = async (message, client, args, member) => {
     await message.delete(0);
     return message.channel.send({embed: {
         color: 1851764,
