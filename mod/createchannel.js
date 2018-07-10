@@ -1,6 +1,11 @@
 exports.run = async (message, client, args) => {
+    if (!args[0] || !args[1]) return message.channel.send({embed: {
+        color: 1239847,
+        title: "fail!",
+        description: "Not enough arguments!"
+    }})
     await message.delete(0);
-    await message.guild.createChannel(args[0], 'text');
+    await message.guild.createChannel(args[0], args[1]);
     await message.guild.channels.find("name", args[0]).send({embed: {
         color: 10571883,
         title: "Welcome!",

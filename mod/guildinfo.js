@@ -3,7 +3,10 @@ exports.run = async (message, client, args) => {
     await message.delete(0);
     await message.channel.send({embed: {
         color: 2981529,
-        title: "Guild Info",
+        title: `guild info for ${message.guild.name}`,
+        image: {
+            url: `${message.guild.iconURL}`
+        },
         fields: [{
             name: "Owner",
             value: `${message.guild.owner}`
@@ -13,8 +16,8 @@ exports.run = async (message, client, args) => {
             value: message.guild.region
         },
         {
-            name: "Splash",
-            value: `${message.guild.splash}`
+            name: "Members",
+            value: `${message.guild.memberCount}`
         }]
     }});
 }
