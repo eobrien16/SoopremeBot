@@ -2,7 +2,7 @@ exports.run = async (message, client, args) => {
     await message.delete(0);
     await console.log(`reloading ${args[0]}...`);
     try {
-    await delete require.cache[require.resolve(`./${args[0]}.js`)];
+    await delete require.cache[require.resolve(`./${args[0]}`)];
     } catch (err) {
         return message.channel.send({embed: {
             color: 1056184,
