@@ -11,6 +11,7 @@ exports.run = async (message, client, args) => {
         }});
     }
     await console.log(`reloaded ${args[0]}!`);
+    let tmp = require(`./${args[0]}`);
     return message.channel.send({embed: {
         color: 1076754,
         title: "Success!",

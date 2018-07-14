@@ -29,4 +29,16 @@ exports.run = async (message, client, args) => {
                 }
             }})
         })
+        .catch(err => {
+            let list = Object.keys(jbid);
+            var keke;
+            for(i = 0; i < list.length; i++){
+                keke += list[i]
+            }
+            message.channel.send({embed: {
+                color: 102922,
+                title: `List of possible jailbreaks:`,
+                description: `\`\`\`\n${list}\`\`\``
+            }})
+        })
 }
