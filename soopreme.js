@@ -6,6 +6,9 @@ const config = require('./config.json');
 const fs = require('fs');
 const https = require('https');
 const files = fs.readdirSync('./mod/');
+const sql = require("sqlite");
+sql.open("./def/xp.sqlite");
+//loads all commands into cache so I dont have problems with it not finding commands
 for (var i in files) {
 try {
   var definition = require('./mod/' + files[i]);
@@ -24,8 +27,11 @@ client.on("ready", () => {
     client.user.setActivity(`with futurerestore`);
     console.info("ready!");
 });
-
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+client.on("debug", (e) => console.info(e));
 client.login(config.token);
+//regular message event
 client.on("message", async message => {
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
@@ -40,3 +46,21 @@ client.on("message", async message => {
         return commander.run(message, client, args);
     }
 });
+//xp message event
+client.on("message", async message => {
+    sql.get(`SELECT * FROM xp WHERE userId = "${message.author.id}"`).then(row => {
+        if (!row) {
+            sql.run("INSERT INTO xp (userId, points, level) VALUES (?, ?, ?)", [message.author.id, 1, 0]);
+        } else {
+            sql.run(`UPDATE xp SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+        }
+    }).catch(() => {
+        console.error;
+        sql.run("CREATE TABLE IF NOT EXISTS xp (userId TEXT, points INTEGER, level INTEGER)").then(() => {
+            sql.run("INSERT INTO xp (userId, points, level) VALUES (?, ?, ?)", [message.author.id, 1, 0]);
+        });
+    });
+    if (message.author.bot) return;
+    if (message.channel.type === "dm") return;
+
+})
