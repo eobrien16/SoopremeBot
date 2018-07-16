@@ -1,5 +1,6 @@
-//token: NDU3OTk2Nzc0ODA4NzQ4MDQz.DghOQA.__OCoXWKj2cRXUeIjzQ_41bIPXU
+//Soopreme token: NDU3OTk2Nzc0ODA4NzQ4MDQz.DghOQA.__OCoXWKj2cRXUeIjzQ_41bIPXU
 //iOS Community tests Token: NDYyMzcwNjU1Mjg3OTAyMjEw.Dhg4Bg.ixH4q2QBqFeOESb6xMp1-GUmdds
+//iOS Community Token: NDU3NjQyODYyODM4OTM5NjUw.DiqHAA.QE6V5qjS_hNHPfkJqczm2YiLzME
 const Discord = require('Discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
