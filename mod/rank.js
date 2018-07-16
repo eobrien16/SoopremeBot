@@ -1,24 +1,21 @@
 exports.run = async (message, client, args) => {
-    const sqlite = require('sqlite');
-    const sqlProm = sqlite.open('./mod/def/xp.sqlite', {Promise});
-    const sql = await sqlProm;
+    const sqlite = require('better-sqlite3');
+    const sql = new sqlite('./mod/def/xp.sqlite');
     await message.delete(0);
-    sql.get(`SELECT * FROM xp WHERE userId ="${message.author.id}"`).then(row => {
-        const lvl = row.level;
-        const exp = row.points;
+    let exp = sql.prepare(`SELECT points FROM scores WHERE user ="${message.author.id}" AND guild = ${message.guild.id}`).get();
+    let lvl = sql.prepare(`SELECT level FROM scores WHERE user ="${message.author.id}" AND guild = ${message.guild.id}`).get();
         return message.channel.send({embed: {
             color: 84745,
             fields: [{
                 name: `Leveling Stats for ${message.author.username}`,
-                value: `Currently Level ${lvl}`
+                value: `Currently Level ${lvl.level}`
             },
             {
-                name: `Experience points`,
-                value: `${exp}`
+                name: `Experience Points`,
+                value: `${exp.points}`
             }],
             thumbnail: {
                 url: `${message.author.avatarURL}`
             }
         }})
-    })
-}
+    }

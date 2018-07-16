@@ -8,8 +8,9 @@ exports.run = async (message, client, args) => {
                         description: "That role doesnt exist!"
                     }})
                 })
-    let channel = message.guild.channels.find("name", "server-news");
-    let announcement = args.slice(1).join(" ")
+
+    let channel = message.guild.channels.find("name", `${args[1]}`);
+    let announcement = args.slice(2).join(" ")
                         .catch(err => {
                             return message.channel.send({embed: {
                                  color: 1029831,

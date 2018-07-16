@@ -7,8 +7,8 @@ const config = require('./config.json');
 const fs = require('fs');
 const https = require('https');
 const files = fs.readdirSync('./mod/');
-const sqlite = require("sqlite");
-const sqlProm = sqlite.open("./mod/def/xp.sqlite", {Promise});
+const SQLite = require("better-sqlite3");
+const sql = new SQLite("./mod/def/xp.sqlite");
 //loads all commands into cache so I dont have problems with it not finding commands
 for (var i in files) {
 try {
@@ -27,6 +27,15 @@ console.log(process.cwd())
 client.on("ready", () => {
     client.user.setActivity(`with futurerestore`);
     console.info("ready!");
+    const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
+    if (!table['count(*)']) {
+        sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER);").run();
+        sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
+        sql.pragma("synchronous = 1");
+        sql.pragma("journal_mode = wal");
+    }
+    client.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
+    client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level) VALUES (@id, @user, @guild, @points, @level);")
 });
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
@@ -51,24 +60,19 @@ client.on("message", async message => {
 client.on("message", async message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
-    const sql = await sqlProm;
-    sql.get(`SELECT * FROM xp WHERE userId = "${message.author.id}"`).then(row => {
-        if (!row) {
-            sql.run("INSERT INTO xp (userId, points, level) VALUES (?, ?, ?)", [message.author.id, 1, 0]);
-        } else {
-            let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
-            if (curLevel > row.level) {
-                row.level = curLevel;
-                sql.run(`UPDATE xp SET points = ${row.points + 1}, level = ${row.level} WHERE userId = ${message.author.id}`);
-                message.reply(`You have reached level **${curLevel}**! `);
-            }
-            sql.run(`UPDATE xp SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
-        }
-    }).catch(() => {
-        console.error;
-        sql.run("CREATE TABLE IF NOT EXISTS xp (userId TEXT, points INTEGER, level INTEGER)").then(() => {
-            sql.run("INSERT INTO xp (userId, points, level) VALUES (?, ?, ?)", [message.author.id, 1, 0]);
-        });
-    });
+    let score;
+  if (message.guild) {
+    score = client.getScore.get(message.author.id, message.guild.id);
+    if (!score) {
+      score = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, points: 0, level: 1 }
+    }
+    score.points++;
+    const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    if(score.level < curLevel) {
+      score.level++;
+      message.author.send(`${message.author}, You've leveled up to **${curLevel}**!`);
+    }
+    client.setScore.run(score);
+  }
 
 })
