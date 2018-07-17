@@ -19,12 +19,15 @@
   "homepage": "https://github.com/eobrien16/SoopremeBot#readme",
   "dependencies": {
     "better-sqlite3": "^4.1.4",
+    "chalk": "^2.4.1",
     "discord.js": "^11.3.2",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "instagram-private-api": "^0.6.8",
     "node-gyp": "^3.7.0",
     "request-promise": "^4.2.2",
-    "sqlite": "^2.9.2"
+    "sqlite": "^2.9.2",
+    "sqlite3": "^4.0.2",
+    "type-of-is": "^3.5.1"
   }
 }

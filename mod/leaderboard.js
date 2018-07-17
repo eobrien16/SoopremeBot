@@ -1,16 +1,21 @@
 exports.run = async (message, client, args) => {
-    const Discord = require('discord.js');
-    const sqlite = require('better-sqlite3');
-    const sql = new sqlite('./mod/def/xp.sqlite');
+    const Discord = require('discord.js'); 
+    const sqlite = require('sqlite');
+    const Type = require('type-of-is');
+    const sqlProm = sqlite.open('./mod/def/xp.sqlite', {Promise});
+    const sql = await sqlProm;
     await message.delete(0);
-    const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;").all(message.guild.id);
-      const embed = new Discord.RichEmbed()
+    sql.run(`SELECT * FROM scores WHERE guild = ${message.guild.id} ORDER BY points DESC LIMIT 10;`).each(row => {
+      console.log(row.user);
+      /*const embed = new Discord.RichEmbed()
         .setTitle("Leaderboard")
         .setAuthor(client.user.username, client.user.avatarURL)
         .setDescription("Our top 10 points leaders!")
         .setColor(0x00AE86);
-      for(const data of top10) {
-        embed.addField(client.users.get(data.user).tag, `${data.points} points (level ${data.level})`);
+      message.channel.send(row.user[0])
+      for (i = 0; i < row.length; i++) {
+        embed.addField(client.users.get(row[i].user).tag, `${row[i].points} points (level ${row[i].level})`);
       }
-      return message.channel.send({embed});
+      message.channel.send({embed});*/
+    });
 }
