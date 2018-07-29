@@ -11,13 +11,13 @@ module.exports = async (client, message) => {
         if (!row) {
           sql.run("INSERT OR REPLACE INTO scores (id, user, guild, points, level) VALUES (?, ?, ?, ?, ?)", [`${message.guild.id}-${message.author.id}`, message.author.id, message.guild.id, 1, 0]);
         } else {
+          sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE id = ${message.guild.id}-${message.author.id}`);
           let curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
           if (curLevel > row.level) {
             row.level = curLevel;
             sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE user = ${message.author.id}`);
             return message.author.send(`You are now level **${curLevel}**!`);
           }
-          sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE id = ${message.guild.id}-${message.author.id}`);
         }
       }).catch(() => {
         console.error;
