@@ -1,4 +1,4 @@
 module.exports = async client => {
-    client.user.setActivity(`with futurerestore`);
+    client.user.setActivity(`soopre.me`);
     console.info("ready!");
 }
