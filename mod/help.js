@@ -3,17 +3,22 @@ const fs = require('fs');
 exports.run = async (message, client, args) => {
     await message.delete(0);
     const files = fs.readdirSync('./mod');
-    const embed = new Discord.RichEmbed();
+    var elp = "";
     for (var i in files) {
         var nme = files[i].split(".")[0];
         try {
-        var usg = require('./' + files[i]);
+        	var usg = require('./' + files[i]);
         } catch (err) {
-            return
+            continue;
         }
-        embed.addField(nme, `${usg.help} -- \`\`\`${usg.usage}\`\`\``)
+        elp += `***${nme}***\n`
+	elp +=  `${usg.help}\n\`\`\`${usg.usage}\`\`\`\n`
     }
-    return message.channel.send({embed})
+    return message.channel.send({embed: {
+		color: 124123,
+		title: "***Help***",
+		description: elp
+	}})
 }
 exports.help = "Gets info on commands"
 exports.usage = "!help <command>"
