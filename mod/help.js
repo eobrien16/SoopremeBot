@@ -6,7 +6,11 @@ exports.run = async (message, client, args) => {
     const embed = new Discord.RichEmbed();
     for (var i in files) {
         var nme = files[i].split(".")[0];
+        try {
         var usg = require('./' + files[i]);
+        } catch (err) {
+            return
+        }
         embed.addField(nme, `${usg.help} -- \`\`\`${usg.usage}\`\`\``)
     }
     return message.channel.send({embed})
