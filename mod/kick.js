@@ -50,3 +50,5 @@ if(!reason) reason = "No reason provided";
       }
     }});
 }}
+exports.help = "kicks a user from the server"
+exports.usage = "!kick <user> [reason]"

@@ -37,3 +37,5 @@ exports.run = async (message, client, args) => {
             }})
         })
 }
+exports.help = "Gets signed firmwares for a device"
+exports.usage = "!device <Device Identifier>"

@@ -7,7 +7,7 @@ exports.run = async (message, client, args) => {
         .then(r => {
             const icon = r.icon_url
             const val = r.value
-            message.channel.send({embed: {
+            return message.channel.send({embed: {
                 color: 128312,
                 title: "Chuck Norris Jokes",
                 thumbnail: {
@@ -15,5 +15,6 @@ exports.run = async (message, client, args) => {
                 },
                 description: `${val}`
             }})        })
-    return
 }
+exports.help = "gets a chuck norris joke"
+exports.usage = "!norris"

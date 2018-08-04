@@ -5,7 +5,7 @@ exports.run = async (message, client, args) => {
         description: "Not enough arguments!"
     }})
     await message.delete(0);
-    await message.guild.createChannel(args[0], args[1]);
+    await message.guild.createChannel(name, args[0]);
     await message.guild.channels.find("name", args[0]).send({embed: {
         color: 10571883,
         title: "Welcome!",
@@ -17,3 +17,5 @@ exports.run = async (message, client, args) => {
         description: `I made your channel! come check it out here: ${message.guild.channels.find("name", args[0])}`
     }})
 }
+exports.help = "Creates a channel"
+exports.usage = "!createchannel <channel name>"

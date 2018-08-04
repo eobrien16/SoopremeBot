@@ -1,11 +1,15 @@
+const Discord = require('discord.js');
+const fs = require('fs');
 exports.run = async (message, client, args) => {
     await message.delete(0);
-    let command = args[0];
-    let commander = require(`./${command}`);
-    
-    await message.channel.send({embed: {
-        color: 1089745,
-        title: `${message.author}, I DMed you!`
-    }});
-    return commander.help(message);
+    const files = fs.readdirSync('./mod');
+    const embed = new Discord.RichEmbed();
+    for (var i in files) {
+        var nme = files[i].split(".")[0];
+        var usg = require('./' + files[i]);
+        embed.addField(nme, `${usg.help} -- \`\`\`${usg.usage}\`\`\``)
+    }
+    return message.channel.send({embed})
 }
+exports.help = "Gets info on commands"
+exports.usage = "!help <command>"

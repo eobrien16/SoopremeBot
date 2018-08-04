@@ -9,3 +9,5 @@ exports.run = async (message, client, args) => {
         return tag.run(message);
     }
 }
+exports.help = "shows a tag"
+exports.usage = "!tag <tag name>"

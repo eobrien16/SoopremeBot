@@ -10,3 +10,5 @@ exports.run = async (message, client, args) => {
         descriptions: `${member} got role ${roleName}`
     }});
 }
+exports.help = "promotes a member"
+exports.usage = "!promote <member> <role *name*>"

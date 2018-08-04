@@ -6,3 +6,5 @@ exports.run = async (message, client, args) => {
         description: "The command you provided doesnt exist!"
     }});
 }
+exports.help = "*help does not apply*"
+exports.usage = "*usage does not apply*"

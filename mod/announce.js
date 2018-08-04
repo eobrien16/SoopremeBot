@@ -20,3 +20,5 @@ exports.run = async (message, client, args) => {
         description: `I made your announcement! come check it out in ${channel}`
     }})
 }
+exports.help = "announces a message"
+exports.usage = "!announce <role> <channel> [announcements]"

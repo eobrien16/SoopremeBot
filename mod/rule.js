@@ -27,3 +27,5 @@ exports.run = async (message, client, args) => {
     }
 }
 }
+exports.help = "shows rules"
+exports.usage = "!rule <number>"

@@ -5,12 +5,13 @@ exports.run = async (message, client, args) => {
     const norris = "https://dog.ceo/api/breeds/image/random";
     await parsedr(norris)
         .then(r => {
-            message.channel.send({embed: {
+            return message.channel.send({embed: {
                 color: 128312,
                 title: "Doggo pictures",
                 image: {
                     url: `${r.message}`
                 },
             }})        })
-    return
 }
+exports.help = "gets a picture of a doggo"
+exports.usage = "!doggo"

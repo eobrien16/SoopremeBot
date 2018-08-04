@@ -7,3 +7,5 @@ exports.run = async (message, client, args) => {
         description: `Created a new emote! try it out by typing \`\`\`:${args[0]}:\`\`\``
     }});
 }
+exports.help = "creates an emote"
+exports.usage = "!emotecreate <name> <url>"

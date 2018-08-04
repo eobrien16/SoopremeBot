@@ -4,3 +4,5 @@ exports.run = async (message, client, args) => {
     let rplc = cntnt.replace(/ /g, "+");
     return message.channel.send("http://lmgtfy.com/?q=" + rplc);
 }
+exports.help = "makes a lmgtfy link"
+exports.usage = "!lmgtfy [question]"

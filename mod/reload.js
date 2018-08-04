@@ -18,3 +18,5 @@ exports.run = async (message, client, args) => {
         description: `reloaded ${args[0]}!`
     }});
 }
+exports.help = "reloads a command"
+exports.usage = "!reload <command>"

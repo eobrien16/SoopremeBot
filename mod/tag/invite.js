@@ -1,5 +1,4 @@
-exports.run = async (message, client, args, member) => {
-    await message.delete(0);
+exports.run = async (message, args) => {
     return message.channel.send({embed: {
         color: 1851764,
         title: "Invite this bot to other servers!",

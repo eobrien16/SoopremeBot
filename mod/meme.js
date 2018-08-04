@@ -13,3 +13,5 @@ exports.run = async (message, client, args) => {
                 }
             }})
 }
+exports.help = "gets a dank meme"
+exports.usage = "!meme"

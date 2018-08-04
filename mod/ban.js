@@ -49,4 +49,7 @@ exports.run = async (message, client, args) => {
             text: "iOS Community ModUtils"
           }
         }});
-    }}
+    }
+}
+exports.help = "bans a user"
+exports.usage = "!ban <user> [reason]"

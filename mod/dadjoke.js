@@ -21,3 +21,5 @@ exports.run = async (message, client, args) => {
                 description: `${r.joke}`
             }})        })
 }
+exports.help = "gets a dad joke"
+exports.usage = "!dadjoke"

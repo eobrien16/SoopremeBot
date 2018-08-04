@@ -19,3 +19,5 @@ exports.run = async (message, client, args, ) => {
         }})
     }
 }
+exports.help = "gets a users avatar"
+exports.usage = "!avatar <user>"

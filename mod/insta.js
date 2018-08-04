@@ -19,3 +19,5 @@ exports.run = async (message, client, args) => {
         }})
     }
 }
+exports.help = "DMs an instagram user"
+exports.usage = "!insta <username> [message]"

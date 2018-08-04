@@ -24,3 +24,5 @@ exports.run = async (message, client, args) => {
             }})
         })
 }
+exports.help = "purges messages in a channel"
+exports.usage = "!purge <number of messages>"

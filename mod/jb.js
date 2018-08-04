@@ -42,3 +42,5 @@ exports.run = async (message, client, args) => {
             }})
         })
 }
+exports.help = "gets information on a jailbreak"
+exports.usage = "!jb <name of jailbreak>"

@@ -21,3 +21,5 @@ exports.run = async (message, client, args) => {
         }]
     }});
 }
+exports.help = "get some info about the guild"
+exports.usage = "!guildinfo"

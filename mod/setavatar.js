@@ -20,3 +20,5 @@ exports.run = async (message, client, args) => {
         description: "I changed my profile picture!"
     }})
 }
+exports.help = "changes the bots avatar"
+exports.usage = "!setavatar <url>"

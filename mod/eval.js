@@ -20,3 +20,5 @@ exports.run = async (message, client, args) => {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
       }
 }
+exports.help = "evaluates a javascript expression"
+exports.usage = "!eval <javascript>"

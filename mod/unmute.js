@@ -49,3 +49,5 @@ exports.run = async (message, client, args) => {
 
     
 }
+exports.help = "unmutes a user"
+exports.usage = "!unmute <user>"
